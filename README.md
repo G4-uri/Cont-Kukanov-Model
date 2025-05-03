@@ -65,7 +65,13 @@ sor-backtest/
 * **λ\_under (`lambda_under`)**: Penalty for under-filling
 * **θ\_queue (`theta_queue`)**: Queue position or fill factor (0–1)
 
-These are scanned using a grid search.
+These are scanned using a grid search:
+
+```python
+lambda_over_values = [0.1, 0.2, 0.3]
+lambda_under_values = [0.1, 0.2, 0.3]
+theta_queue_values = [0.5, 0.6, 0.7]
+```
 
 ---
 
@@ -106,18 +112,24 @@ The `plot_cost_sensitivity` function generates a 2D heatmap of total cost vs. λ
 
 ---
 
-## 🧪 Future Improvements
+## 💡 Realism Improvement Suggestion
 
-* Add support for TWAP, VWAP, and Best Ask benchmarks
-* Integrate with Optuna or Ray Tune for smarter hyperparameter search
-* Extend to L2 order books or real-time feeds
+One idea to improve **fill realism** is to include:
+
+* **Queue Position Modeling**: Use order book depth and estimate probability of execution based on queue priority. A lower `theta_queue` for deeper levels or longer queues.
+* **Slippage Penalty**: Add extra cost for executing beyond top-of-book or in volatile time windows.
+
+This would more closely approximate real execution dynamics in live markets.
 
 ---
 
 ## 🧑‍💼 Author
 
-* **Gauri Nair**
+* **Gauri Nair** 
 
-📜 License
+---
+
+## 📜 License
 
 MIT License – feel free to use, modify, and distribute with attribution.
+
